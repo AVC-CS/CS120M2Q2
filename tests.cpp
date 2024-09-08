@@ -2,24 +2,30 @@
 #define CATCH_CONFIG_MAIN // defines main() automatically
 #include <iostream>
 #include "catch.hpp"
-#include "main.hpp"
+#include "main_sol.hpp"
 // tests for exercise 1
 
 TEST_CASE("Ex1 rewritesplitwords() ", "[example]")
 {
 
 	string filename = "allstates.txt";
+	vector<Name> namerecords;
 	string state, name;
 	char gen;
 	int year, cnt;
 	ifstream ifs;
-	int count;
+	int count = 0;
 	char delimiter = ',';
 
-	count = rewritesplitwords(filename, delimiter);
-
-	REQUIRE(count == 4080);
+	namerecords = rewritesplitwords(filename, delimiter);
+	REQUIRE(namerecords.size() == 4080);
 	cout << "--------------------------------------------------\n";
+
+	ifs.open("split.txt");
+	REQUIRE(ifs.is_open());
+	while (ifs >> state >> gen >> year >> name >> cnt)
+		count += 1;
+	REQUIRE(count == 4080);
 }
 
 TEST_CASE("Ex2 rewritesplitwords() ", "[example]")
@@ -60,20 +66,16 @@ TEST_CASE("Ex2 rewritesplitwords() ", "[example]")
 TEST_CASE("Ex3 MFN() ", "[example]")
 {
 
-	ifstream ifs;
-	string state, name;
-	char gen;
-	int year, cnt;
-	string retname;
+	vector<Result> result;
+	vector<Name> namerecords = rewritesplitwords("allstates.txt", ',');
 
-	ifs.open("split.txt");
-	if (!ifs)
-		cerr << "File Open Error\n";
-
-	retname = MFN("IN", 2018);
-	REQUIRE(retname == "Oliver");
-	retname = MFN("DE", 2018);
-	REQUIRE(retname == "Liam");
-
+	result = MFN(namerecords, "IN", 2018);
+	cout << "Most frequently used male name and count in IN, 2018: " << result[0].name << " " << result[0].count << endl;
+	cout << "--------------------------------------------------\n";
+	REQUIRE(result[0].name == "Oliver");
+	result = MFN(namerecords, "DE", 2018);
+	cout << "Most frequently used male name and count in DE, 2018: " << result[0].name << " " << result[0].count << endl;
+	cout << "--------------------------------------------------\n";
+	REQUIRE(result[0].name == "Liam");
 	cout << "--------------------------------------------------\n";
 }
