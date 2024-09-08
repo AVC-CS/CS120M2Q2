@@ -96,6 +96,5 @@ vector<Result> MFN(vector<Name> namerecords, string stname, int thisyear)
 			MFNames[1] = {name.name, name.count};
 		}
 	}
-	ifs.close();
 	return MFNames;
 }

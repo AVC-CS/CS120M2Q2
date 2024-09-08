@@ -2,7 +2,7 @@
 #define CATCH_CONFIG_MAIN // defines main() automatically
 #include <iostream>
 #include "catch.hpp"
-#include "main_sol.hpp"
+#include "main.hpp"
 // tests for exercise 1
 
 TEST_CASE("Ex1 rewritesplitwords() ", "[example]")

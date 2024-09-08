@@ -1,5 +1,4 @@
-// #include "main.hpp"
-#include "main_sol.hpp"
+#include "main.hpp"
 
 int main()
 {
